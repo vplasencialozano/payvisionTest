@@ -6,7 +6,6 @@ import org.jbehave.core.io.LoadFromRelativeFile;
 import org.jbehave.core.junit.JUnitStory;
 import org.jbehave.core.reporters.CrossReference;
 import org.jbehave.core.reporters.FilePrintStreamFactory;
-import org.jbehave.core.reporters.Format;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
@@ -17,9 +16,13 @@ import java.util.Properties;
 
 import static org.jbehave.core.reporters.StoryReporterBuilder.Format.*;
 
+/**
+ * The type Main.
+ */
 public class Main extends JUnitStory {
 
     private final CrossReference xref = new CrossReference();
+
     @Override
     public Configuration configuration() {
 

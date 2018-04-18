@@ -101,6 +101,7 @@ public class HttpClientTest {
 
         try {
 
+
             restTemplate.getInterceptors().add(new BasicAuthorizationInterceptor(username, password));
 
             if (params.isEmpty()) {
@@ -129,6 +130,9 @@ public class HttpClientTest {
                 jsonObj = new JSONObject(response.replace("[", ""));
 
                 jsonArray = new JSONArray(result.getBody());
+            } else {
+                jsonObj = new JSONObject();
+                jsonArray = null;
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -140,38 +144,7 @@ public class HttpClientTest {
 
     }
 
-    /**
-     * Check results.
-     */
-    public void checkResults() {
 
-        try {
-            Verify.verify(status.is2xxSuccessful(), "endpoint call is not valid");
-
-            if (jsonObj != null && jsonObj.length() > 0) {
-                Verify.verify(jsonObj != null, "Json is null");
-                Verify.verify(jsonObj.length() > 0, "Json is empty");
-                Verify.verify(jsonObj.get("amount") != null, "Amount is empty");
-                Verify.verify(jsonObj.get("amount") != null, "Amount is empty");
-                Verify.verify(jsonObj.get("brandId") != null, "BrandId is empty");
-                Verify.verify(jsonObj.get("trackingCode") != null, "TrackingCode is empty");
-                Verify.verify(jsonObj.get("card") != null, "Card is empty");
-
-                Verify.verify(jsonObj.get("action") != null, "Action is empty ");
-                Verify.verify(jsonObj.get("action").equals(params.get("action")), "Action is not valid, action expected was %s and it was received %s ", params.get("action"), jsonObj.get("action"));
-
-                Verify.verify(jsonObj.get("currencyCode") != null, "CurrencyCode is empty");
-                Verify.verify(jsonObj.get("currencyCode").equals(params.get("currencyCode")), "CurrencyCode is not valid, CurrencyCode expected was %s and it was received %s ", params.get("currencyCode"), jsonObj.get("currencyCode"));
-
-            } else {
-
-                LOGGER.log(Level.INFO, "JSON is empty");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-
-        }
-    }
 
     /**
      * Check results by filters.
